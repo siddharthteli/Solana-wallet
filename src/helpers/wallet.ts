@@ -5,20 +5,21 @@ let providerUrl = 'https://www.sollet.io';
 let wallet = new Wallet(providerUrl,"http://devnet.solana.com");
 
 
-async function connectToWallet() {
+export default async function connectToWallet() {
 await wallet.connect();
 
 let transaction = new Transaction().add(
   SystemProgram.transfer({
-    fromPubkey: wallet.publicKey,
-    toPubkey: wallet.publicKey,
+    fromPubkey: wallet!.publicKey!,
+    toPubkey: wallet!.publicKey!,
     lamports: 100,
   })
 );
 let { blockhash } = await connection.getRecentBlockhash();
 transaction.recentBlockhash = blockhash;
-transaction.feePayer = wallet.publicKey;
+transaction.feePayer = wallet!.publicKey!;
 let signed = await wallet.signTransaction(transaction);
 let txid = await connection.sendRawTransaction(signed.serialize());
 await connection.confirmTransaction(txid);
 }
+
