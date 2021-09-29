@@ -18,20 +18,24 @@ export default class Display extends React.Component {
        
 
    }
+   onAmountChange =(e) =>{
+       this.setState({amount:e.target.value});
+
+   }
     
     render() {
         return(
             <div class="wrapper">
                 <div class="vertical-wrapper">
                  <label>Receiver address:</label>
-                 <input type="text" value={this.state.address} onClick={this.click} onChange={this.onAddressChange}/>
+                 <input type="text" value={this.state.address}  onChange={this.onAddressChange}/>
                 </div>
                 <div class="vertical-wrapper">
                 <label>Amount:</label>
-                 <input type="text" value={this.state.amount}onClick={this.click}/>
+                 <input type="text" value={this.state.amount} onChange={this.onAmountChange}/>
                     
                 </div>
-                <input type="submit" value="Send-Money" class="submit-button"/>
+                <button class="submit-button" onClick={this.onClick}>Send-Money </button> 
                 
             </div>
         )
@@ -39,7 +43,7 @@ export default class Display extends React.Component {
     }
 
    async componentDidMount() {
-     await  connectToWallet();
+     
           
     }
 }
