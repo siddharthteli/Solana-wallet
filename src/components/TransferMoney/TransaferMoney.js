@@ -14,8 +14,11 @@ export default class Display extends React.Component {
                  <input type="text" onClick={this.click}/>
                 </div>
                 <div class="vertical-wrapper">
+                <label>Receiver address:</label>
+                 <input type="text" onClick={this.click}/>
                     
                 </div>
+                <input type="submit" class="submit-button"/>
                 
             </div>
         )
