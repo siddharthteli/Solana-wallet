@@ -5,7 +5,7 @@ import sendMoney from '../../helpers/wallet'
 export default class Display extends React.Component {
     constructor() {
         super();
-        this.state={address:'',amount:''};
+        this.state={address:'',amount:Number};
     }
 
     onClick = async() => {
