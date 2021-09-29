@@ -1,14 +1,15 @@
 import React from 'react';
 import connectToWallet from '../../helpers/wallet';
 import './TransferMoney.css';
+import sendMoney from '../../helpers/wallet'
 export default class Display extends React.Component {
     constructor() {
         super();
-        this.state={address:'',balance:''};
+        this.state={address:'',amount:''};
     }
 
     onClick = async() => {
-        
+        let transactionResult=sendMoney(this.state.address,this.state.amount);
 
     }
 
@@ -27,7 +28,7 @@ export default class Display extends React.Component {
                 </div>
                 <div class="vertical-wrapper">
                 <label>Amount:</label>
-                 <input type="text" value={this.state.balance}onClick={this.click}/>
+                 <input type="text" value={this.state.amount}onClick={this.click}/>
                     
                 </div>
                 <input type="submit" value="Send-Money" class="submit-button"/>
