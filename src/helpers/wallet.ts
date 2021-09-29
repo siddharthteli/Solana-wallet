@@ -1,4 +1,4 @@
-import { Connection, SystemProgram, Transaction, clusterApiUrl } from '@solana/web3.js';
+import { Connection, SystemProgram, Transaction, clusterApiUrl} from '@solana/web3.js';
 import Wallet from "@project-serum/sol-wallet-adapter"
 let connection = new Connection(clusterApiUrl('devnet'));
 let providerUrl = 'https://www.sollet.io';
@@ -22,4 +22,5 @@ let signed = await wallet.signTransaction(transaction);
 let txid = await connection.sendRawTransaction(signed.serialize());
 await connection.confirmTransaction(txid);
 }
+
 
