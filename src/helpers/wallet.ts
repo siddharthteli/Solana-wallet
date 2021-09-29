@@ -1,26 +1,37 @@
-import { Connection, SystemProgram, Transaction, clusterApiUrl} from '@solana/web3.js';
-import Wallet from "@project-serum/sol-wallet-adapter"
-let connection = new Connection(clusterApiUrl('devnet'));
-let providerUrl = 'https://www.sollet.io';
-let wallet = new Wallet(providerUrl,"http://devnet.solana.com");
+import { Connection, SystemProgram, Transaction, clusterApiUrl ,PublicKey} from '@solana/web3.js';
 
 
-export default async function connectToWallet() {
-await wallet.connect();
 
-let transaction = new Transaction().add(
-  SystemProgram.transfer({
-    fromPubkey: wallet!.publicKey!,
-    toPubkey: wallet!.publicKey!,
-    lamports: 100,
-  })
-);
-let { blockhash } = await connection.getRecentBlockhash();
-transaction.recentBlockhash = blockhash;
-transaction.feePayer = wallet!.publicKey!;
-let signed = await wallet.signTransaction(transaction);
-let txid = await connection.sendRawTransaction(signed.serialize());
-await connection.confirmTransaction(txid);
+type DisplayEncoding = "utf8" | "hex";
+interface ConnectOpts {
+  onlyIfTrusted: boolean;
+}
+interface PhantomProvider {
+  publicKey: PublicKey | null;
+  isConnected: boolean | null;
+  signTransaction: (transaction: Transaction) => Promise<Transaction>;
+  signAllTransactions: (transactions: Transaction[]) => Promise<Transaction[]>;
+  signMessage: (
+    message: Uint8Array | string,
+    display?: DisplayEncoding
+  ) => Promise<any>;
+  connect: (opts?: Partial<ConnectOpts>) => Promise<{ publicKey: PublicKey }>;
+  disconnect: () => Promise<void>;
+  on: (event: PhantomEvent, handler: (args: any) => void) => void;
+  request: (method: PhantomRequestMethod, params: any) => Promise<unknown>;
 }
 
 
+export default async function connectToWallet() {
+
+  const getProvider = (): PhantomProvider | undefined => {
+    if ("solana" in window) {
+      const anyWindow: any = window;
+      const provider = anyWindow.solana;
+      if (provider.isPhantom) {
+        return provider;
+      }
+    }
+    window.open("https://phantom.app/", "_blank");
+  };
+}
