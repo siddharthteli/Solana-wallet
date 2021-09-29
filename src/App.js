@@ -1,11 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
 
-import Display  from './components/Display';
+import TransaferMoney  from './components/TransferMoney/TransaferMoney';
 function App() {
   return (
     <div className="App">
-      <Display/>
+      <TransaferMoney/>
     </div>
   );
 }

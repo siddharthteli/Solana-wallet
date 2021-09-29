@@ -6,8 +6,9 @@ let wallet = new Wallet(providerUrl,"http://devnet.solana.com");
 
 
 export default async function connectToWallet() {
+  console.log("inside wallet connection function");
 await wallet.connect();
-
+console.log("wallet connected");
 let transaction = new Transaction().add(
   SystemProgram.transfer({
     fromPubkey: wallet!.publicKey!,
@@ -20,6 +21,7 @@ transaction.recentBlockhash = blockhash;
 transaction.feePayer = wallet!.publicKey!;
 let signed = await wallet.signTransaction(transaction);
 let txid = await connection.sendRawTransaction(signed.serialize());
+console.log("Transaction signature----"+txid);
 await connection.confirmTransaction(txid);
 }
 

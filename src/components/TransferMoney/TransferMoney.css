@@ -1,0 +1,22 @@
+.wrapper {
+    width:350px; 
+    height: 200px;
+    margin-left: 40%;
+    margin-right: 40%;
+    margin-top:40px;
+    border: 1px solid black;
+    overflow: hidden;
+    border-radius: 5px;
+    display: grid;
+    grid-template-rows: 30% 30% 30%;
+    
+  }
+
+
+  .vertical-wrapper{
+      
+    display: grid;
+    grid-template-columns: 50% 50%;
+    margin: 21px;
+
+  }
