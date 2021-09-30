@@ -9,7 +9,8 @@ export default class Display extends React.Component {
     }
 
     onClick = async() => {
-        let transactionResult=sendMoney(this.state.address,this.state.amount);
+        let transactionResult= await sendMoney(this.state.address,this.state.amount);
+        console.log("Result" + transactionResult);
 
     }
 
