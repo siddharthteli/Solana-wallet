@@ -7,7 +7,20 @@ let providerUrl = 'https://www.sollet.io';
 // other URL's -https://api.devnet.solana.com , http://localhost:8899
 let wallet = new Wallet(providerUrl,"https://api.devnet.solana.com");
 
+interface TranferData {
+  senderAddress?:string,
+  receiverAddress?:string,
+  fee?:string,
+  senderBalance?:string,
+  receiverBalance?:string,
+  signature?:string,
+  block?:string
+  
 
+
+
+
+}
 
 export default async function sendMoney(address:string,amount:number) {
   await wallet.connect();
@@ -25,8 +38,8 @@ export default async function sendMoney(address:string,amount:number) {
   let signed = await wallet.signTransaction(transaction);
   let txid = await connection.sendRawTransaction(signed.serialize());
   await connection.confirmTransaction(txid);
-  transactionDetial(address);
-  return txid;
+  let transactionData=transactionDetial(address);
+  return transactionData;
   }
 
 
@@ -44,7 +57,17 @@ export default async function sendMoney(address:string,amount:number) {
    console.log("sender address-"+senderAddress+"Reiciver address"+receiverAddress);
     console.log("Fee---"+metaData?.fee+"Paid by--"+transactionData?.feePayer);
     console.log("Sender Balance---"+metaData?.postBalances[0]+"Receivers new Balance---"+metaData?.postBalances[1]);
-    
+    let data:TranferData;
+    data={
+        senderAddress:senderAddress?.toString(),
+        receiverAddress:receiverAddress?.toString(),
+        fee:metaData?.fee.toString(),
+        senderBalance:metaData?.postBalances[0].toString(),
+        receiverBalance:metaData?.postBalances[1].toString(),
+        signature:signature.toString(),
+        block:confirmed?.slot.toString(),
+    }
+    return data;
 
   }
 
