@@ -1,0 +1,11 @@
+.transaction-wrapper{
+    width: 900px;
+    height: 200px;
+    border:1px black solid;
+    margin: auto;
+    margin-top: 50px;
+    display: grid;
+    grid-template-rows:repeat(33%);
+    padding: 10px;
+   
+}

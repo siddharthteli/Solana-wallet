@@ -7,7 +7,7 @@ let providerUrl = 'https://www.sollet.io';
 // other URL's -https://api.devnet.solana.com , http://localhost:8899
 let wallet = new Wallet(providerUrl,"https://api.devnet.solana.com");
 
-interface TranferData {
+ interface TranferData {
   senderAddress?:string,
   receiverAddress?:string,
   fee?:string,
@@ -15,10 +15,6 @@ interface TranferData {
   receiverBalance?:string,
   signature?:string,
   block?:string
-  
-
-
-
 
 }
 

@@ -2,16 +2,18 @@ import React from 'react';
 import connectToWallet from '../../helpers/wallet';
 import './TransferMoney.css';
 import sendMoney from '../../helpers/wallet'
+import Transaction from '../Transaction/Transaction.js'
 export default class Display extends React.Component {
     constructor() {
         super();
-        this.state={address:'',amount:Number};
+        this.state={address:'',amount:Number,transaction:Object};
+        
     }
 
     onClick = async() => {
         let transactionResult= await sendMoney(this.state.address,this.state.amount);
         console.log("Result" + JSON.stringify(transactionResult));
-
+        this.setState({transaction:transactionResult});
     }
 
    onAddressChange= (e) => {
@@ -26,6 +28,7 @@ export default class Display extends React.Component {
     
     render() {
         return(
+            <div>
             <div class="wrapper">
                 <div class="vertical-wrapper">
                  <label>Receiver address:</label>
@@ -38,6 +41,8 @@ export default class Display extends React.Component {
                 </div>
                 <button class="submit-button" onClick={this.onClick}>Send-Money </button> 
                 
+            </div>
+            <Transaction prop={this.state.transaction}/>
             </div>
         )
 
